@@ -1,6 +1,6 @@
 import pygame
 import time
-from coord import tracking_mass,put_on_mass,where_mouse_mass
+from coord import tracking_mass, put_on_mass, where_mouse_mass
 
 
 class othello:
@@ -12,7 +12,7 @@ class othello:
         windowX, windowY = 850, 650
         self.font = pygame.font.Font('ipaexg.ttf', 20)
         self.screen = pygame.display.set_mode((windowX, windowY))
-        self.RGBdict = {"WHITE": (240, 240, 240),"BLACK": (50, 50, 50),"GREAN": (118, 190, 180)}
+        self.RGBdict = {"WHITE": (240, 240, 240), "BLACK": (50, 50, 50), "GREAN": (118, 190, 180)}
         self.evaluation_lst = [
             [50 ,-20, 15, 10, 10, 15, -20, 50],
             [-20,-40, -5, -5, -5, -5, -40,-20],
@@ -78,7 +78,7 @@ class othello:
         opposite_color = self.opposite(color)
         inversion_num = 0
         ng_lst = [-1, 8]
-        pies = [[1,0], [1,1], [0,1], [-1,1], [-1,0], [-1,-1], [0,-1], [1,-1]]
+        pies = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
         for p in pies:
             check_X,check_Y = X + p[0], Y + p[1]
             if check_X not in ng_lst and check_Y not in ng_lst:
@@ -107,11 +107,11 @@ class othello:
         return result_lst
 
 
-    def change_execute(self,board_lst,color,send_X,send_Y,rec_X,rec_Y,direction):
-        target_X,target_Y = send_X + direction[0], send_Y + direction[1]
+    def change_execute(self, board_lst, color, send_X, send_Y, rec_X, rec_Y, direction):
+        target_X, target_Y = send_X + direction[0], send_Y + direction[1]
         while (target_X,target_Y) != (rec_X,rec_Y):
             board_lst[target_Y][target_X] = color
-            target_X,target_Y = target_X + direction[0], target_Y + direction[1]
+            target_X, target_Y = target_X + direction[0], target_Y + direction[1]
         return board_lst
 
 
@@ -144,12 +144,12 @@ class othello:
                     white += 1
                 else:
                     none += 1
-        return black,white,none
+        return black, white, none
     
 
-    def put_judge_num(self,screen,white,black,font,X,Y):
-        text1 = font.render(f'YOU:{black}', True, self.RGBdict["BLACK"])
-        text2 = font.render(f'COM:{white}', True, self.RGBdict["BLACK"])
+    def put_judge_num(self, screen, white, black, font, X,Y):
+        text1 = font.render(f'YOU: {black}', True, self.RGBdict["BLACK"])
+        text2 = font.render(f'COM: {white}', True, self.RGBdict["BLACK"])
 
         text1 = pygame.transform.scale(text1, (100, 40)) 
         text2 = pygame.transform.scale(text2, (100, 40)) 
@@ -190,10 +190,10 @@ class othello:
                 pygame.display.flip()
             else:
                 now_put_color = 1
-                search_lst = self.search_can_put_lst(board_lst,now_put_color)
-                X,Y = self.AI_put_where(board_lst,self.evaluation_lst,enemy_color)
-                board_lst = self.put_stone(board_lst,now_put_color,X,Y)
-                board_lst = self.check_change_stone(board_lst,now_put_color ,"exe",X,Y)
+                search_lst = self.search_can_put_lst(board_lst, now_put_color)
+                X, Y = self.AI_put_where(board_lst, self.evaluation_lst, enemy_color)
+                board_lst = self.put_stone(board_lst, now_put_color, X, Y)
+                board_lst = self.check_change_stone(board_lst, now_put_color , "exe", X, Y)
                 turn += 1
                 pygame.display.flip()
 
