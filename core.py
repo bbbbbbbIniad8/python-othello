@@ -5,7 +5,7 @@ from coord import tracking_mass, put_on_mass, where_mouse_mass
 
 class othello:
     def __init__(self):
-        #setting
+        # setting
         pygame.init()
         self.mass_size = [60, 60]
         self.shift = [120, 30]
@@ -14,32 +14,32 @@ class othello:
         self.screen = pygame.display.set_mode((windowX, windowY))
         self.RGBdict = {"WHITE": (240, 240, 240), "BLACK": (50, 50, 50), "GREAN": (118, 190, 180)}
         self.evaluation_lst = [
-            [50 ,-20, 15, 10, 10, 15, -20, 50],
-            [-20,-40, -5, -5, -5, -5, -40,-20],
-            [15 ,-5 , 15,  8,  8, 15,  -5, 15],
-            [10 ,-5 , 15,  8,  8, 15,  -5, 10],
-            [10 ,-5 , 15,  8,  8, 15,  -5, 10],
-            [15 ,-5 , 15,  8,  8, 15,  -5, 15],
-            [-20,-40, -5, -5, -5, -5, -40,-20],
-            [50 ,-20, 15, 10, 10, 15, -20, 50],
+            [ 50, -20, 15, 10, 10, 15, -20, 50],
+            [-20, -40, -5, -5, -5, -5, -40, -20],
+            [15 , -5 , 15,  8,  8, 15,  -5, 15],
+            [10 , -5 , 15,  8,  8, 15,  -5, 10],
+            [10 , -5 , 15,  8,  8, 15,  -5, 10],
+            [15 , -5 , 15,  8,  8, 15,  -5, 15],
+            [-20, -40, -5, -5, -5, -5, -40, -20],
+            [ 50, -20, 15, 10, 10, 15, -20, 50],
         ]
 
 
     def create_board_lst(self):
         board = [
-            [-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1],
-            [-1,-1,-1,-1,-1,-1,-1,-1],
+            [-1 -1 -1 -1 -1 -1 -1 -1]
+            [-1 -1 -1 -1 -1 -1 -1 -1]
+            [-1 -1 -1 -1 -1 -1 -1 -1]
+            [-1 -1 -1 -1 -1 -1 -1 -1]
+            [-1 -1 -1 -1 -1 -1 -1 -1]
+            [-1 -1 -1 -1 -1 -1 -1 -1]
+            [-1 -1 -1 -1 -1 -1 -1 -1]
+            [-1 -1 -1 -1 -1 -1 -1 -1],
         ]
         return board
 
 
-    def set_board(self,board_lst):
+    def set_board(self, board_lst):
         board_lst[3][3] = 1
         board_lst[3][4] = 0
         board_lst[4][3] = 0
@@ -53,7 +53,7 @@ class othello:
                 put_on_mass(self.screen, self.mass_size, self.shift, XC, YC, (0, 0, 0), "四角")
 
 
-    def draw_now_board(self,board_lst,search_lst):
+    def draw_now_board(self, board_lst, search_lst):
         for YC in range(8):
             for XC in range(8):
                 if board_lst[YC][XC] == 0:
@@ -151,8 +151,8 @@ class othello:
         text1 = font.render(f'YOU: {black}', True, self.RGBdict["BLACK"])
         text2 = font.render(f'COM: {white}', True, self.RGBdict["BLACK"])
 
-        text1 = pygame.transform.scale(text1, (100, 40)) 
-        text2 = pygame.transform.scale(text2, (100, 40)) 
+        text1 = pygame.transform.scale(text1, (100, 40))
+        text2 = pygame.transform.scale(text2, (100, 40))
 
         screen.blit(text1, (X+40, Y+10))
         screen.blit(text2, (X+40, Y+60))
@@ -172,14 +172,14 @@ class othello:
 
             if turn % 2 == 0:
                 now_put_color = 0
-                search_lst = self.search_can_put_lst(board_lst,now_put_color)
+                search_lst = self.search_can_put_lst(board_lst, now_put_color)
                 self.screen.fill(self.RGBdict["GREAN"])
                 self.draw_board_line()
-                self.draw_now_board(board_lst,search_lst)
-                tracking_mass(self.screen,self.mass_size,self.shift)
-                X,Y = where_mouse_mass(self.mass_size,self.shift)
+                self.draw_now_board(board_lst, search_lst)
+                tracking_mass(self.screen, self.mass_size, self.shift)
+                X, Y = where_mouse_mass(self.mass_size, self.shift)
                 if event.type == pygame.MOUSEBUTTONDOWN and X >= 0 and X < 8 and Y >= 0 and Y < 8 and board_lst[Y][X] == -1:
-                    if self.check_change_stone(board_lst,now_put_color ,"cnt",X,Y) >= 1:
+                    if self.check_change_stone(board_lst, now_put_color, "cnt", X, Y) >= 1:
                         board_lst = self.put_stone(board_lst, now_put_color, X, Y)
                         board_lst = self.check_change_stone(board_lst, now_put_color, "exe", X, Y)
                         turn += 1
