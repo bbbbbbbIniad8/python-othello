@@ -16,28 +16,26 @@ class othello:
         self.evaluation_lst = [
             [ 50, -20, 15, 10, 10, 15, -20, 50],
             [-20, -40, -5, -5, -5, -5, -40, -20],
-            [15 , -5 , 15,  8,  8, 15,  -5, 15],
-            [10 , -5 , 15,  8,  8, 15,  -5, 10],
-            [10 , -5 , 15,  8,  8, 15,  -5, 10],
-            [15 , -5 , 15,  8,  8, 15,  -5, 15],
+            [ 15,  -5, 15,  8,  8, 15,  -5, 15],
+            [ 10,  -5, 15,  8,  8, 15,  -5, 10],
+            [ 10,  -5, 15,  8,  8, 15,  -5, 10],
+            [ 15,  -5, 15,  8,  8, 15,  -5, 15],
             [-20, -40, -5, -5, -5, -5, -40, -20],
             [ 50, -20, 15, 10, 10, 15, -20, 50],
         ]
 
-
     def create_board_lst(self):
         board = [
-            [-1 -1 -1 -1 -1 -1 -1 -1]
-            [-1 -1 -1 -1 -1 -1 -1 -1]
-            [-1 -1 -1 -1 -1 -1 -1 -1]
-            [-1 -1 -1 -1 -1 -1 -1 -1]
-            [-1 -1 -1 -1 -1 -1 -1 -1]
-            [-1 -1 -1 -1 -1 -1 -1 -1]
-            [-1 -1 -1 -1 -1 -1 -1 -1]
-            [-1 -1 -1 -1 -1 -1 -1 -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1],
         ]
         return board
-
 
     def set_board(self, board_lst):
         board_lst[3][3] = 1
@@ -46,12 +44,10 @@ class othello:
         board_lst[4][4] = 1
         return board_lst
 
-
     def draw_board_line(self):
         for YC in range(8):
             for XC in range(8):
                 put_on_mass(self.screen, self.mass_size, self.shift, XC, YC, (0, 0, 0), "四角")
-
 
     def draw_now_board(self, board_lst, search_lst):
         for YC in range(8):
@@ -63,7 +59,6 @@ class othello:
                 elif board_lst[YC][XC] == -1 and search_lst[YC][XC] > 0:
                     put_on_mass(self.screen, self.mass_size, self.shift, XC, YC, (100, 100, 0), "小四角")
 
-
     def put_stone(self, board_lst, color, X, Y):
         putcolor = self.RGBdict["BLACK"] if color == 0 else self.RGBdict["WHITE"]
         if board_lst[Y][X] == -1:
@@ -72,7 +67,6 @@ class othello:
             time.sleep(0.1)
             pass_ = 0
         return board_lst
-
 
     def check_change_stone(self, board_lst, color, mode, X, Y):
         opposite_color = self.opposite(color)
@@ -90,12 +84,11 @@ class othello:
                             break
                         if board_lst[check_Y][check_X] != opposite_color:
                             if mode == "exe":
-                                board_lst = self.change_execute(board_lst,color,X,Y,check_X,check_Y,p)
+                                board_lst = self.change_execute(board_lst, color, X, Y, check_X, check_Y, p)
                             elif mode == "cnt":
                                 inversion_num += 1
                             break
         return board_lst if mode == "exe" else inversion_num
-
 
     def search_can_put_lst(self,board_lst,color):
         result_lst = self.create_board_lst()
@@ -106,7 +99,6 @@ class othello:
                     result_lst[Y][X] = cnt
         return result_lst
 
-
     def change_execute(self, board_lst, color, send_X, send_Y, rec_X, rec_Y, direction):
         target_X, target_Y = send_X + direction[0], send_Y + direction[1]
         while (target_X,target_Y) != (rec_X,rec_Y):
@@ -114,17 +106,15 @@ class othello:
             target_X, target_Y = target_X + direction[0], target_Y + direction[1]
         return board_lst
 
-
     def opposite(self, color):
         return 0 if color == 1 else 1
-
 
     def AI_put_where(self, board_lst, evaluation_lst, color):
         search_lst = self.search_can_put_lst(board_lst, color)
         decide_put = [(-1,-1), -100]
         for Y in range(8):
             for X in range(8):
-                if board_lst[Y][X] == -1 and search_lst[Y][X] > 0 and self.check_change_stone(board_lst,color ,"cnt", X, Y) > 0:
+                if board_lst[Y][X] == -1 and search_lst[Y][X] > 0 and self.check_change_stone(board_lst, color, "cnt", X, Y) > 0:
                     if decide_put[1] < evaluation_lst[Y][X]:
                         decide_put[0] = (X, Y)
                         decide_put[1] = evaluation_lst[Y][X]
@@ -132,7 +122,7 @@ class othello:
         return decide_put[0]
 
 
-    def coune_stone(self,board_lst):
+    def coune_stone(self, board_lst):
         black = 0
         white = 0
         none = 0
@@ -193,7 +183,7 @@ class othello:
                 search_lst = self.search_can_put_lst(board_lst, now_put_color)
                 X, Y = self.AI_put_where(board_lst, self.evaluation_lst, enemy_color)
                 board_lst = self.put_stone(board_lst, now_put_color, X, Y)
-                board_lst = self.check_change_stone(board_lst, now_put_color , "exe", X, Y)
+                board_lst = self.check_change_stone(board_lst, now_put_color, "exe", X, Y)
                 turn += 1
                 pygame.display.flip()
 
