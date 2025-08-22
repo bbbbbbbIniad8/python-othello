@@ -3,7 +3,7 @@ import pygame
 
 # 左上に座標を表示
 def debug_mouse_coord(screen, font):
-    mouseX,mouseY = pygame.mouse.get_pos()
+    mouseX, mouseY = pygame.mouse.get_pos()
     text = font.render(f'{mouseX},{mouseY}', True, (255, 255, 255))
     screen.blit(text, (0, 0))
 
@@ -31,8 +31,7 @@ def exchange_coord(mass_size, shift, X, Y):
 def tracking_mass(screen, mass_size, shift):
     N_MassX, N_MassY = where_mouse_mass(mass_size, shift)
     pygame.draw.rect(screen, (0, 255, 255), (N_MassX*mass_size[0]+shift[0], N_MassY*mass_size[1]+shift[1],
-                                           mass_size[0], mass_size[1]),3)
-
+                                             mass_size[0], mass_size[1]), 3)
 
 
 # 指定した分割座標上に図形を表示
@@ -48,4 +47,4 @@ def put_on_mass(screen, Mass_size, shift, X, Y, color, KATATI):
     elif KATATI == "小四角":
         MASSX = Mass_size[0] // 4
         MASSY = Mass_size[1] // 4
-        pygame.draw.rect(screen, color, (X+Mass_size[0]//2-MASSX/2,Y+Mass_size[1]//2-MASSY/2, MASSX, MASSY))
+        pygame.draw.rect(screen, color, (X+Mass_size[0]//2-MASSX/2, Y+Mass_size[1]//2-MASSY/2, MASSX, MASSY))

@@ -135,7 +135,7 @@ class othello:
                     none += 1
         return black, white, none
 
-    def put_judge_num(self, screen, white, black, font, X,Y):
+    def put_judge_num(self, screen, white, black, font, X, Y):
         text1 = font.render(f'YOU: {black}', True, self.RGBdict["BLACK"])
         text2 = font.render(f'COM: {white}', True, self.RGBdict["BLACK"])
 
@@ -171,10 +171,10 @@ class othello:
                         board_lst = self.check_change_stone(board_lst, now_put_color, "exe", X, Y)
                         turn += 1
 
-                black,white,none = self.coune_stone(board_lst)
-                self.put_judge_num(self.screen, white, black, self.font, 600, 30)
-                        
+                black, white, none = self.coune_stone(board_lst)
+                self.put_judge_num(self.screen, white, black, self.font, 600, 30)  
                 pygame.display.flip()
+
             else:
                 now_put_color = 1
                 search_lst = self.search_can_put_lst(board_lst, now_put_color)
