@@ -74,7 +74,7 @@ class othello:
         ng_lst = [-1, 8]
         pies = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
         for p in pies:
-            check_X,check_Y = X + p[0], Y + p[1]
+            check_X, check_Y = X + p[0], Y + p[1]
             if check_X not in ng_lst and check_Y not in ng_lst:
                 if board_lst[check_Y][check_X] == opposite_color:
                     while True:
@@ -90,7 +90,7 @@ class othello:
                             break
         return board_lst if mode == "exe" else inversion_num
 
-    def search_can_put_lst(self,board_lst,color):
+    def search_can_put_lst(self, board_lst, color):
         result_lst = self.create_board_lst()
         for X in range(8):
             for Y in range(8):
@@ -101,7 +101,7 @@ class othello:
 
     def change_execute(self, board_lst, color, send_X, send_Y, rec_X, rec_Y, direction):
         target_X, target_Y = send_X + direction[0], send_Y + direction[1]
-        while (target_X,target_Y) != (rec_X,rec_Y):
+        while (target_X, target_Y) != (rec_X, rec_Y):
             board_lst[target_Y][target_X] = color
             target_X, target_Y = target_X + direction[0], target_Y + direction[1]
         return board_lst
@@ -111,7 +111,7 @@ class othello:
 
     def AI_put_where(self, board_lst, evaluation_lst, color):
         search_lst = self.search_can_put_lst(board_lst, color)
-        decide_put = [(-1,-1), -100]
+        decide_put = [(-1, -1), -100]
         for Y in range(8):
             for X in range(8):
                 if board_lst[Y][X] == -1 and search_lst[Y][X] > 0 and self.check_change_stone(board_lst, color, "cnt", X, Y) > 0:
@@ -120,7 +120,6 @@ class othello:
                         decide_put[1] = evaluation_lst[Y][X]
 
         return decide_put[0]
-
 
     def coune_stone(self, board_lst):
         black = 0
@@ -135,7 +134,6 @@ class othello:
                 else:
                     none += 1
         return black, white, none
-    
 
     def put_judge_num(self, screen, white, black, font, X,Y):
         text1 = font.render(f'YOU: {black}', True, self.RGBdict["BLACK"])
@@ -146,7 +144,6 @@ class othello:
 
         screen.blit(text1, (X+40, Y+10))
         screen.blit(text2, (X+40, Y+60))
-
 
     def run(self):
         board_lst = self.set_board(self.create_board_lst())
