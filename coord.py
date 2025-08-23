@@ -35,16 +35,14 @@ def tracking_mass(screen, mass_size, shift):
 
 
 # 指定した分割座標上に図形を表示
-def put_on_mass(screen, Mass_size, shift, X, Y, color, KATATI):
+def put_on_mass(screen, Mass_size, shift, X, Y, color, shape):
     X = Mass_size[0] * X + shift[0]
     Y = Mass_size[1] * Y + shift[1]
-    if KATATI == "丸":
+    if shape == "circle":
         pygame.draw.circle(screen, color, (X+Mass_size[0]//2, Y+Mass_size[0]//2), Mass_size[0]//2-0.5)
-
-    elif KATATI =="四角":
+    elif shape =="square":
         pygame.draw.rect(screen, color, (X, Y, Mass_size[0], Mass_size[1]), 1)
-
-    elif KATATI == "小四角":
+    elif shape == "small_square":
         MASSX = Mass_size[0] // 4
         MASSY = Mass_size[1] // 4
         pygame.draw.rect(screen, color, (X+Mass_size[0]//2-MASSX/2, Y+Mass_size[1]//2-MASSY/2, MASSX, MASSY))
